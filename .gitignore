@@ -1,0 +1,27 @@
+### Java ###
+*.class
+*.log
+*.jar
+*.war
+hs_err_pid*
+
+### Maven ###
+target/
+.mvn/wrapper/maven-wrapper.jar
+
+### IDE ###
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+
+### OS ###
+.DS_Store
+Thumbs.db
+
+### Spark ###
+spark-warehouse/
+metastore_db/
+derby.log 
