@@ -28,3 +28,11 @@ Run the spring boot server
 ```
 mvn spring-boot:run
 ```
+
+Give it some time to spin up and then open up ```http://localhost:8080/api/spark/word-count``` in a browser
+
+You'll know everything is working correctly if you get the following response:
+
+```
+[{"word":"Hello","count":4},{"word":"Spark","count":2},{"word":"World","count":1},{"word":"Spring","count":1}]
+```
