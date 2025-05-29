@@ -2,7 +2,8 @@
 
 ## Overview
 
-This is an example repo that shows how to run a Springboot API Server that connected to an Apache Spark instance running in Docker.
+This is an example repo that shows how to set up a very simple springboot server that connects to
+a spark cluster running in docker.
 
 ## Requirements
 
