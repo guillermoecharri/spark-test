@@ -5,31 +5,25 @@ services:
     image: bitnami/spark:3.5.0
     container_name: spark-master
     environment:
-      - SPARK_MODE=master
+      SPARK_MODE: master
     ports:
       - "9000:8080" # Web UI Port
       - "7077:7077" # Spark Master Port
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
 
   spark-worker-1:
     image: bitnami/spark:3.5.0
     container_name: spark-worker-1
     environment:
-      - SPARK_MODE=worker
-      - SPARK_MASTER_URL=spark://spark-master:7077
+      SPARK_MODE: worker
+      SPARK_MASTER_URL: spark://spark-master:7077
     depends_on:
       - spark-master
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
 
   spark-worker-2:
     image: bitnami/spark:3.5.0
     container_name: spark-worker-2
     environment:
-      - SPARK_MODE=worker
-      - SPARK_MASTER_URL=spark://spark-master:7077
+      SPARK_MODE: worker
+      SPARK_MASTER_URL: spark://spark-master:7077
     depends_on:
       - spark-master
-    extra_hosts:
-      - "host.docker.internal:host-gateway"

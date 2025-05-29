@@ -40,8 +40,22 @@
             <version>${spark.version}</version>
         </dependency>
 
-        <!-- Hadoop -->
+        <!-- Janino is required by Spark for code generation -->
+		<!-- <dependency>
+			<groupId>org.codehaus.janino</groupId>
+			<artifactId>janino</artifactId>
+			<version>3.0.16</version>
+		</dependency> -->
+
+        <!-- Old Javax Servlet API - mostly replaced by Jakarta EE these days but required by Spark -->
         <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+
+        <!-- Hadoop -->
+        <!-- <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
             <version>${hadoop.version}</version>
@@ -60,14 +74,14 @@
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-auth</artifactId>
             <version>${hadoop.version}</version>
-        </dependency>
+        </dependency> -->
 
         <!-- Lombok -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
+        </dependency> -->
 
         <!-- Test -->
         <dependency>
@@ -83,16 +97,22 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <excludes>
+                    <!-- <mainClass>com.example.sparktest.SparkTestApplication</mainClass> -->
+                    <!-- Idk why this is needed -->
+                    <!-- <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                         </exclude>
-                    </excludes>
+                    </excludes> -->
                     <!-- Spark requires these java packages to be exported, Java 17+ has these packages hidden by default -->
                     <jvmArguments>
                         --add-exports=java.base/sun.nio.ch=ALL-UNNAMED
                         --add-exports=java.base/sun.security.action=ALL-UNNAMED
+                        --add-opens=java.base/java.nio=ALL-UNNAMED
+                        --add-opens=java.base/java.lang=ALL-UNNAMED
+                        --add-opens=java.base/java.lang.invoke=ALL-UNNAMED
+                        --add-opens=java.base/java.util=ALL-UNNAMED
                     </jvmArguments>
                 </configuration>
             </plugin>

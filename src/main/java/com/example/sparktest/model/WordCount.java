@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class WordCount implements Serializable {
     private static final long serialVersionUID = 1L;
     private String word;
-    private int count;
+    private Integer count;
 
-    public WordCount(String word, int count) {
+    public WordCount(String word, Integer count) {
         this.word = word;
         this.count = count;
     }
@@ -16,7 +16,7 @@ public class WordCount implements Serializable {
         return word;
     }
 
-    public int getCount() {
+    public Integer getCount() {
         return count;
     }
 } 

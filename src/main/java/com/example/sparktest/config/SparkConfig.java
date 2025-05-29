@@ -13,21 +13,19 @@ public class SparkConfig {
     public SparkConf sparkConf() {
         return new SparkConf()
                 .setAppName("SparkTest")
-                .setMaster("local[*]")
+                // Disable Spark UI, otherwise we will need to include some other dependencies
+                // The Spark Master's UI will still be available and that is more useful
                 .set("spark.ui.enabled", "false")
-                .set("spark.hadoop.fs.defaultFS", "file:///")
-                .set("spark.hadoop.fs.file.impl", "org.apache.hadoop.fs.LocalFileSystem")
-                .set("spark.hadoop.fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem")
-                .set("spark.driver.memory", "2g")
-                .set("spark.executor.memory", "1g")
-                .set("spark.memory.fraction", "0.8")
-                .set("spark.memory.storageFraction", "0.3")
-                .set("spark.executor.cores", "2")
-                .set("spark.executor.instances", "2")
-                .set("spark.network.timeout", "600s")
-                .set("spark.executor.heartbeatInterval", "30s")
-                .set("spark.dynamicAllocation.enabled", "false")
-                .set("spark.shuffle.service.enabled", "false");
+                // .set("spark.dynamicAllocation.enabled", "false")
+                // .set("spark.executor.memory", "1g")
+                // .set("spark.driver.memory", "1g")
+                // Configure networking for Docker
+                .set("spark.driver.host", "host.docker.internal")
+                .set("spark.driver.bindAddress", "0.0.0.0")
+                // Add application JAR for worker nodes - using the mounted path in containers
+                // TODO: Make this dynamic
+                .setJars(new String[]{"C:\\Git\\spark-test\\target\\spark-test-1.0-SNAPSHOT.jar"})
+                .setMaster("spark://localhost:7077");
     }
 
     @Bean
@@ -40,8 +38,6 @@ public class SparkConfig {
         return SparkSession.builder()
                 .sparkContext(javaSparkContext().sc())
                 .appName("SparkTest")
-                .config("spark.sql.shuffle.partitions", "2")
-                .config("spark.default.parallelism", "2")
                 .getOrCreate();
     }
 } 
