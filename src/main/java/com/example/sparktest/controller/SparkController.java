@@ -3,7 +3,7 @@ package com.example.sparktest.controller;
 import com.example.sparktest.jobs.WordCountJob;
 import com.example.sparktest.model.WordCount;
 
-import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.sql.SparkSession;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +15,10 @@ import java.util.List;
 @RequestMapping("/api/spark")
 public class SparkController {
 
-    private final JavaSparkContext sparkContext;
+    private final SparkSession sparkSession;
 
-    public SparkController(JavaSparkContext sparkContext) {
-        this.sparkContext = sparkContext;
+    public SparkController(SparkSession sparkSession) {
+        this.sparkSession = sparkSession;
     }
 
     @GetMapping("/word-count")
@@ -30,6 +30,6 @@ public class SparkController {
             "Hello Spark"
         );
 
-        return WordCountJob.run(sparkContext, text);
+        return WordCountJob.run(sparkSession, text);
     }
 } 

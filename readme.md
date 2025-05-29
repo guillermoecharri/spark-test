@@ -18,6 +18,11 @@ Run the docker compose to start up spark with a couple workers
 docker compose up -d
 ```
 
+Install dependencies
+```
+mvn clean install
+```
+
 Run the spring boot server
 
 ```
